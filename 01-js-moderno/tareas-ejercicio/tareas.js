@@ -4,20 +4,19 @@
 const STORAGE_KEY = 'tasks'; // Clave para localStorage
 
 // Devuelve la lista de tareas almacenadas
-export function getTasks() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+export function getTasks(key) {
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
-
 // Agrega una tarea nueva y la guarda en localStorage
-export function addTask(task) {
-  const tasks = getTasks();
+export function addTask(key,task) {
+  const tasks = getTasks(key);
   tasks.push(task);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  localStorage.setItem(key, JSON.stringify(tasks));
 }
 
 // Elimina una tarea por índice y actualiza localStorage
-export function removeTask(index) {
-  const tasks = getTasks();
+export function removeTask(key, index) {
+  const tasks = getTasks(key);
   tasks.splice(index, 1);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  localStorage.setItem(key, JSON.stringify(tasks));
 } 

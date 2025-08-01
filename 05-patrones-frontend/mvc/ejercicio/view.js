@@ -14,7 +14,20 @@ export class TaskView {
       const li = document.createElement('li');
       li.textContent = task;
       // TODO: Agrega aquí el botón y la lógica para eliminar la tarea
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Eliminar';
+      removeButton.className = 'remove';
+      removeButton.dataset.idx = idx;
+
+      li.appendChild(removeButton);
       // TODO: Agrega aquí el botón y la lógica para editar la tarea
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Editar';
+      editButton.className = 'edit';
+      editButton.dataset.idx = idx;
+
+      
+      li.appendChild(editButton);
       this.list.appendChild(li);
     });
   }
@@ -30,7 +43,21 @@ export class TaskView {
 
   // TODO: Asocia el evento de eliminar tarea a la lista
   // bindRemoveTask(handler) { ... }
+  bindEvents(removeHandler, editHandler) {
+  this.list.onclick = e => {
+    const idx = Number(e.target.dataset.idx);
 
-  // TODO: Asocia el evento de editar tarea a la lista
-  // bindEditTask(handler) { ... }
-} 
+    if (e.target.classList.contains('remove')) {
+      removeHandler(idx);
+    }
+
+    if (e.target.classList.contains('edit')) {
+      const newTask = prompt('Editar tarea:', e.target.parentElement.firstChild.textContent);
+      if (newTask) {
+        editHandler(idx, newTask);
+      }
+    }
+  };
+}
+
+  }
